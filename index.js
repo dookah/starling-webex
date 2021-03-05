@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 //endpoint for money being sent 
 app.post('/sendMoney', (req, res) => {
-    webexMessage = helper.generateMessage("transferOut", req.body)
+    webexMessage = helper.generateMessageInterface("transferOut", req.body)
 
     webex.messages.create({
         markdown: webexMessage,
