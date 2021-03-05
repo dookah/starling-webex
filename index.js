@@ -1,6 +1,7 @@
 const express = require('express')
 const Webex = require('webex');
 const bodyParser = require('body-parser');
+const helper = require('./helper');
 const app = express()
 const port = process.env.PORT || 8080;
 
@@ -37,10 +38,17 @@ app.post('/sendMoney', (req, res) => {
     res.sendStatus(200)
   })
 
-//endpoint for standing order transaction
-app.post('/standingOrder', (req,res) => {
-    console.log (req.body)
+//
+app.post('/sendStanding', (req, res) => {
 
+    helper.generateMessage(req.body)
+
+    webex.messages.create({
+        markdown: messageHeader + messageDivider + messageContent + messageReferenceIntro + messageReference,
+        toPersonEmail: targetUser
+    })
+
+    res.sendStatus(200)
 })
 
 app.listen(port, () => {
