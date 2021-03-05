@@ -43,11 +43,6 @@ app.post('/sendStanding', (req, res) => {
 
     helper.generateMessage(req.body)
 
-    webex.messages.create({
-        markdown: messageHeader + messageDivider + messageContent + messageReferenceIntro + messageReference,
-        toPersonEmail: targetUser
-    })
-
     res.sendStatus(200)
 })
 
