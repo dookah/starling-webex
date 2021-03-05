@@ -21,23 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
   
 
-let roomCredentials = {
-    roomID : null
-}
-
-//When the script starts, create a room with the desired user
-webex.rooms.create({ title: 'Starling Notifications'}).then(room => {
-    return Promise.all([
-        webex.memberships.create({
-            roomId: room.id,
-            personEmail: targetUser
-        })   
-   ]).then(() => {
-       roomCredentials.roomID = room.id
-   })
-});
-
-
 //endpoint for money being sent 
 app.post('/sendMoney', (req, res) => {
     let messageHeader = "# 💸 Payment Out Alert! 💸 \n"
@@ -48,7 +31,7 @@ app.post('/sendMoney', (req, res) => {
 
     webex.messages.create({
         markdown: messageHeader + messageDivider + messageContent + messageReferenceIntro + messageReference,
-        roomId: roomCredentials.roomID
+        toPersonEmail: targetUser
     })
   })
 
