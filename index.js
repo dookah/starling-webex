@@ -9,6 +9,8 @@ require('dotenv').config()
 
 let targetUser = 'joshudea@cisco.com'
 
+console.log(process.env.BOT_KEY)
+
 const webex = Webex.init({
     credentials: {
       access_token: process.env.BOT_KEY
