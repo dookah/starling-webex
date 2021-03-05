@@ -33,6 +33,8 @@ app.post('/sendMoney', (req, res) => {
         markdown: messageHeader + messageDivider + messageContent + messageReferenceIntro + messageReference,
         toPersonEmail: targetUser
     })
+
+    res.status(201);
   })
 
 //endpoint for standing order transaction
