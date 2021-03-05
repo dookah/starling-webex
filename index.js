@@ -1,12 +1,17 @@
 const express = require('express')
 const Webex = require('webex');
-let bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const app = express()
 const port = process.env.PORT || 8080;
 
+
+require('dotenv').config()
+
+let targetUser = 'joshudea@cisco.com'
+
 const webex = Webex.init({
     credentials: {
-      access_token: ''
+      access_token: process.env.BOT_KEY
     }
 });
 
@@ -18,11 +23,12 @@ let roomCredentials = {
     roomID : null
 }
 
+//When the script starts, create a room with the desired user
 webex.rooms.create({ title: 'Starling Notifications'}).then(room => {
     return Promise.all([
         webex.memberships.create({
             roomId: room.id,
-            personEmail: `joshudea@cisco.com`
+            personEmail: targetUser
         })   
    ]).then(() => {
        roomCredentials.roomID = room.id
@@ -30,10 +36,8 @@ webex.rooms.create({ title: 'Starling Notifications'}).then(room => {
 });
 
 
+//endpoint for money being sent 
 app.post('/sendMoney', (req, res) => {
-   
-    console.log(req.body)
-   
     let messageHeader = "# 💸 Payment Out Alert! 💸 \n"
     let messageDivider = "--- \n"
     let messageContent = "A Faster Payment of £" + (req.body.content.amount)*-1 +" has just been sent to **_" + req.body.content.counterParty + "_**. \n"
@@ -46,6 +50,12 @@ app.post('/sendMoney', (req, res) => {
     })
   })
 
+//endpoint for standing order transaction
+app.post('/standingOrder', (req,res) => {
+    console.log (req.body)
+
+})
+
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Starling listening at http://localhost:${port}`)
 })
