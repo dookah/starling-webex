@@ -60,4 +60,4 @@ let generateTransferOutMessage = (body) => {
     return generatedString
 }
 
-exports.generateMessageInterface = generateMessage;
+exports.generateMessageInterface = generateMessageInterface;
