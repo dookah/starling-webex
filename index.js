@@ -24,14 +24,10 @@ app.use(bodyParser.json());
 
 //endpoint for money being sent 
 app.post('/sendMoney', (req, res) => {
-    let messageHeader = "# 💸 Payment Out Alert! 💸 \n"
-    let messageDivider = "--- \n"
-    let messageContent = "A Faster Payment of £" + (req.body.content.amount)*-1 +" has just been sent to **_" + req.body.content.counterParty + "_**. \n"
-    let messageReferenceIntro = "Payment Reference: \n"
-    let messageReference = "``` \n" + req.body.content.reference + "\n ```"
+    webexMessage = helper.generateMessage("transferOut", req.body)
 
     webex.messages.create({
-        markdown: messageHeader + messageDivider + messageContent + messageReferenceIntro + messageReference,
+        markdown: webexMessage,
         toPersonEmail: targetUser
     })
 
