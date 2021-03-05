@@ -34,7 +34,7 @@ app.post('/sendMoney', (req, res) => {
         toPersonEmail: targetUser
     })
 
-    res.status(201);
+    res.sendStatus(200)
   })
 
 //endpoint for standing order transaction
