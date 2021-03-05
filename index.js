@@ -37,8 +37,6 @@ app.post('/sendMoney', (req, res) => {
 //
 app.post('/sendStanding', (req, res) => {
 
-    helper.generateMessage(req.body)
-
     res.sendStatus(200)
 })
 
