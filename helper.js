@@ -65,7 +65,7 @@ let generateTransferOutMessage = (body) => {
     // Append Introduction 
     generatedString += "# 💸 Inbound Payment Alert! 💸 \n"
     generatedString += "--- \n"
-    generatedString += "A Faster Payment of £" + (body.content.amount)*-1 +" has just been recieved by **_" + body.content.counterParty + "_**. \n"
+    generatedString += "A Faster Payment of £" + (body.content.amount) +" has just been recieved by **_" + body.content.counterParty + "_**. \n"
     generatedString += "### Payment Reference: \n"
     generatedString += "``` \n" + body.content.reference + "\n ```"
 
